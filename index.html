@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Little Luke's BIG Adventure</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Caveat:wght@500;700&family=Figtree:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --teal:#1B4541;
+    --teal-deep:#102E2B;
+    --teal-mid:#26625C;
+    --cream:#F3E8D2;
+    --cream-soft:#FBF6EA;
+    --amber:#E0962E;
+    --amber-deep:#B8761E;
+    --brick:#B23A2E;
+    --pine:#3C6B45;
+    --ink:#241F1A;
+    --ink-soft:#5B5147;
+    --line:rgba(36,31,26,0.12);
+    --radius:14px;
+    --shadow:0 6px 18px rgba(16,46,43,0.12);
+    --maxw:1140px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--cream-soft);
+    color:var(--ink);
+    font-family:'Figtree',system-ui,sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{margin:0;}
+  a{color:var(--teal-mid);}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  .hand{font-family:'Caveat',cursive;}
+  img,svg{display:block;}
+  :focus-visible{outline:3px solid var(--amber); outline-offset:2px; border-radius:4px;}
+
+  .container{max-width:var(--maxw); margin:0 auto; padding:0 20px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:
+      radial-gradient(circle at 12% 18%, rgba(224,150,46,0.16), transparent 38%),
+      radial-gradient(circle at 88% 78%, rgba(60,107,69,0.22), transparent 42%),
+      linear-gradient(160deg, var(--teal-deep), var(--teal) 60%, var(--teal-mid));
+    color:var(--cream-soft);
+    padding:64px 20px 46px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    font-size:0.78rem;
+    color:var(--amber);
+    margin-bottom:14px;
+    opacity:0.95;
+  }
+  .hero-title{
+    font-family:'Anton',sans-serif;
+    text-transform:uppercase;
+    line-height:0.96;
+    letter-spacing:0.01em;
+  }
+  .hero-title .l1{
+    display:block;
+    font-size:clamp(2rem, 6vw, 3.1rem);
+    color:var(--cream-soft);
+  }
+  .hero-title .l2{
+    display:block;
+    font-size:clamp(2.8rem, 9.5vw, 5.6rem);
+    color:var(--amber);
+    text-shadow:3px 3px 0 var(--brick);
+  }
+  .hero-sub{
+    margin-top:18px;
+    font-size:1.05rem;
+    color:var(--cream);
+    opacity:0.92;
+  }
+  .hero-sub strong{color:var(--cream-soft);}
+  .hero-blurb{
+    max-width:560px;
+    margin:16px auto 0;
+    color:var(--cream);
+    opacity:0.85;
+    font-size:0.97rem;
+  }
+
+  /* countdown */
+  .countdown{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:34px auto 0;
+    flex-wrap:wrap;
+  }
+  .countdown-box{
+    background:var(--cream-soft);
+    color:var(--teal-deep);
+    border-radius:10px;
+    padding:14px 10px 10px;
+    min-width:74px;
+    box-shadow:0 4px 0 var(--amber-deep), 0 10px 22px rgba(0,0,0,0.25);
+    transform:rotate(var(--r,0deg));
+  }
+  .countdown-box:nth-child(1){--r:-2deg;}
+  .countdown-box:nth-child(2){--r:1.5deg;}
+  .countdown-box:nth-child(3){--r:-1deg;}
+  .countdown-box:nth-child(4){--r:2deg;}
+  .countdown-num{
+    font-family:'IBM Plex Mono',monospace;
+    font-weight:600;
+    font-size:1.9rem;
+    line-height:1;
+  }
+  .countdown-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.62rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:4px;
+  }
+  .countdown-note{
+    margin-top:14px;
+    font-family:'Caveat',cursive;
+    font-size:1.3rem;
+    color:var(--amber);
+  }
+
+  /* ---------- NAV ---------- */
+  .tabs-wrap{
+    background:var(--cream-soft);
+    border-bottom:1px solid var(--line);
+    position:sticky;
+    top:0;
+    z-index:50;
+    box-shadow:0 2px 10px rgba(0,0,0,0.05);
+  }
+  .tabs{
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding:10px 20px;
+    max-width:var(--maxw);
+    margin:0 auto;
+    scrollbar-width:thin;
+  }
+  .tab{
+    flex:0 0 auto;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    text-decoration:none;
+    color:var(--teal);
+    background:transparent;
+    border:1.5px solid transparent;
+    padding:7px 13px;
+    border-radius:20px;
+    white-space:nowrap;
+    transition:background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .tab:hover{background:rgba(27,69,65,0.08);}
+  .tab.active{background:var(--amber); color:var(--teal-deep); border-color:var(--amber-deep);}
+
+  /* ---------- SECTIONS (generic) ---------- */
+  main{padding-bottom:40px;}
+  section.block{padding:54px 0 8px;}
+  .section-head{margin-bottom:26px; max-width:680px;}
+  .section-eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--amber-deep);
+    margin-bottom:6px;
+  }
+  .section-title{
+    font-family:'Anton',sans-serif;
+    text-transform:uppercase;
+    font-size:clamp(1.6rem,3.6vw,2.2rem);
+    color:var(--teal-deep);
+    letter-spacing:0.01em;
+  }
+  .section-desc{margin-top:8px; color:var(--ink-soft); font-size:0.97rem;}
+
+  .progress-row{
+    display:flex; align-items:center; gap:10px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.82rem; color:var(--ink-soft);
+    margin-top:10px;
+  }
+  .progress-bar{
+    flex:1; max-width:220px; height:8px; background:rgba(36,31,26,0.1);
+    border-radius:6px; overflow:hidden;
+  }
+  .progress-fill{height:100%; background:var(--pine); border-radius:6px;}
+
+  /* ---------- SCHEDULE ---------- */
+  .day-grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fill,minmax(230px,1fr));}
+  .day-card{
+    background:var(--cream-soft);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    overflow:hidden;
+    border:1px solid var(--line);
+    position:relative;
+  }
+  .day-card.flexible{border-style:dashed; border-color:var(--amber-deep); background:repeating-linear-gradient(135deg, var(--cream-soft) 0 14px, #efe2c8 14px 16px);}
+  .day-stub{
+    background:var(--teal);
+    color:var(--cream-soft);
+    padding:12px 14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    border-bottom:2px dashed rgba(243,232,210,0.45);
+  }
+  .day-stub .dnum{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; opacity:0.75;}
+  .day-date{font-family:'Anton',sans-serif; font-size:1.3rem; letter-spacing:0.02em;}
+  .day-weekday{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; opacity:0.85; text-transform:uppercase;}
+  .day-type-tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.66rem;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:3px 8px;
+    border-radius:12px;
+    color:var(--ink);
+    align-self:flex-start;
+  }
+  .tag-toronto{background:var(--amber);}
+  .tag-niagara{background:#7BB8C9;}
+  .tag-collingwood{background:var(--pine); color:var(--cream-soft);}
+  .tag-trailer{background:#C9A86A;}
+  .tag-farewell{background:var(--brick); color:var(--cream-soft);}
+
+  .wag-pin{
+    position:absolute; top:10px; right:12px;
+    background:var(--brick); color:#fff;
+    font-family:'IBM Plex Mono',monospace; font-size:0.62rem; font-weight:600;
+    padding:3px 7px; border-radius:6px;
+    transform:rotate(6deg);
+    box-shadow:0 2px 4px rgba(0,0,0,0.25);
+  }
+  .day-body{padding:14px 16px 16px;}
+  .day-slot{font-size:0.88rem; margin-bottom:6px; display:flex; gap:6px;}
+  .day-slot .slot-label{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; text-transform:uppercase; color:var(--ink-soft); min-width:64px; padding-top:2px;}
+  .day-open-note{font-family:'Caveat',cursive; font-size:1.15rem; color:var(--amber-deep); margin-top:4px;}
+
+  /* ---------- TABLES / ROSTER ---------- */
+  .table-scroll{overflow-x:auto; border-radius:var(--radius); box-shadow:var(--shadow); background:var(--cream-soft); border:1px solid var(--line);}
+  table.roster{border-collapse:collapse; width:100%; min-width:760px;}
+  table.roster th, table.roster td{padding:10px 12px; text-align:center; border-bottom:1px solid var(--line); font-size:0.85rem;}
+  table.roster th{font-family:'IBM Plex Mono',monospace; font-size:0.7rem; text-transform:uppercase; color:var(--ink-soft); background:rgba(27,69,65,0.05);}
+  table.roster td.name-col, table.roster th.name-col{
+    text-align:left; font-weight:700; position:sticky; left:0; background:var(--cream-soft); z-index:2;
+    border-right:1px solid var(--line);
+  }
+  table.roster th.name-col{background:rgba(27,69,65,0.07);}
+  .day-type-mini{display:block; font-size:0.62rem; color:var(--ink-soft); font-weight:400; text-transform:none;}
+  .wag-flag{color:var(--brick); font-size:0.62rem;}
+  .stat-yes{color:var(--pine); font-weight:700;}
+  .stat-no{color:var(--brick); font-weight:700;}
+  .stat-unk{color:#b9ad97;}
+  .roster-foot{padding:10px 14px; font-size:0.8rem; color:var(--ink-soft); border-top:1px dashed var(--line);}
+
+  /* ---------- ACTIVITY INTEREST ---------- */
+  .activity-city{margin-bottom:26px;}
+  .activity-city h3{
+    font-family:'Anton',sans-serif; color:var(--teal); text-transform:uppercase;
+    font-size:1.1rem; letter-spacing:0.02em; margin-bottom:10px;
+    border-bottom:2px solid var(--amber); display:inline-block; padding-bottom:2px;
+  }
+  .activity-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:var(--cream-soft); border:1px solid var(--line); border-radius:10px;
+    padding:10px 14px; margin-bottom:8px; box-shadow:0 2px 6px rgba(0,0,0,0.04);
+  }
+  .activity-name{font-weight:600; font-size:0.94rem;}
+  .activity-optional{font-size:0.7rem; color:var(--ink-soft); font-style:italic;}
+  .chip-row{display:flex; gap:5px; flex-wrap:wrap; justify-content:flex-end;}
+  .chip{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem;
+    background:var(--pine); color:#fff; padding:3px 8px; border-radius:10px;
+  }
+  .chip.joke{background:var(--brick);}
+  .chip-empty{font-size:0.78rem; color:#b9ad97; font-style:italic;}
+
+  /* ---------- COSTS ---------- */
+  .cost-grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+  .cost-card{background:var(--cream-soft); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+  .cost-card h3{font-family:'Anton',sans-serif; background:var(--teal); color:var(--cream-soft); padding:10px 14px; font-size:1rem; text-transform:uppercase; letter-spacing:0.02em;}
+  .cost-table{width:100%; border-collapse:collapse; font-size:0.85rem;}
+  .cost-table td{padding:8px 14px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .cost-table td.price{white-space:nowrap; font-family:'IBM Plex Mono',monospace; font-weight:600; text-align:right; color:var(--amber-deep);}
+  .cost-note{display:block; font-size:0.74rem; color:var(--ink-soft); margin-top:2px;}
+  .cost-total{padding:10px 14px; font-family:'IBM Plex Mono',monospace; font-weight:600; background:rgba(60,107,69,0.08); font-size:0.85rem;}
+  .cost-optional-tag{font-size:0.65rem; text-transform:uppercase; color:var(--brick); margin-left:6px;}
+  .joke-row td{font-style:italic; color:var(--ink-soft);}
+
+  .calc-panel{
+    margin-top:30px; background:var(--teal-deep); color:var(--cream-soft);
+    border-radius:var(--radius); padding:22px 22px 26px; box-shadow:var(--shadow);
+  }
+  .calc-panel h3{font-family:'Anton',sans-serif; text-transform:uppercase; font-size:1.3rem; color:var(--amber);}
+  .calc-panel p{color:var(--cream); font-size:0.9rem; opacity:0.85; margin-top:6px;}
+  .calc-segment{margin-top:18px; border-top:1px solid rgba(243,232,210,0.18); padding-top:14px;}
+  .calc-main-toggle{display:flex; align-items:center; gap:10px; font-weight:700; font-size:0.98rem; cursor:pointer;}
+  .calc-main-toggle input{width:18px; height:18px; accent-color:var(--amber);}
+  .calc-addons{margin:10px 0 0 28px; display:flex; flex-direction:column; gap:7px;}
+  .calc-addons label{display:flex; align-items:center; gap:8px; font-size:0.86rem; color:var(--cream); opacity:0.9; cursor:pointer;}
+  .calc-addons input{accent-color:var(--amber);}
+  .calc-addons.disabled{opacity:0.35; pointer-events:none;}
+  .calc-result{
+    margin-top:24px; background:rgba(243,232,210,0.08); border:1px dashed rgba(243,232,210,0.4);
+    border-radius:10px; padding:16px 18px; text-align:center;
+  }
+  .calc-total-num{font-family:'IBM Plex Mono',monospace; font-size:1.9rem; color:var(--amber); font-weight:600;}
+  .calc-total-avg{font-size:0.85rem; color:var(--cream); opacity:0.8; margin-top:4px;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em;
+    background:var(--amber); color:var(--teal-deep); border:none; padding:10px 18px;
+    border-radius:24px; cursor:pointer; margin-top:14px; transition:transform 0.12s, background 0.15s;
+  }
+  .btn:hover{background:var(--cream-soft); transform:translateY(-1px);}
+  .btn.ghost{background:transparent; color:var(--cream-soft); border:1.5px solid var(--cream-soft);}
+  .btn.ghost:hover{background:rgba(243,232,210,0.12); color:var(--cream-soft);}
+  .btn-row{display:flex; gap:10px; flex-wrap:wrap; justify-content:center;}
+  .copy-flash{font-size:0.75rem; color:var(--amber); margin-top:8px; min-height:1em;}
+
+  /* ---------- CHECKLIST ---------- */
+  .checklist-grid{display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(270px,1fr));}
+  .checklist-col{background:var(--cream-soft); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 18px 18px;}
+  .checklist-col h3{font-family:'Anton',sans-serif; color:var(--teal-deep); text-transform:uppercase; font-size:1.05rem;}
+  .checklist-col .who{font-size:0.78rem; color:var(--ink-soft); margin-top:2px; margin-bottom:10px;}
+  .checklist-item{display:flex; align-items:flex-start; gap:9px; padding:6px 0; border-bottom:1px solid var(--line); font-size:0.88rem;}
+  .checklist-item input{margin-top:3px; width:16px; height:16px; accent-color:var(--pine); flex:0 0 auto;}
+  .checklist-item label{cursor:pointer;}
+  .checklist-item.done label{color:var(--ink-soft); text-decoration:line-through;}
+  .checklist-progress{margin:8px 0 14px;}
+
+  /* ---------- INFO ---------- */
+  .info-grid{display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin-bottom:30px;}
+  .info-card{background:var(--cream-soft); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px; box-shadow:var(--shadow);}
+  .info-card h4{font-family:'Anton',sans-serif; color:var(--teal); font-size:0.95rem; text-transform:uppercase; margin-bottom:8px;}
+  .info-card p, .info-card li{font-size:0.87rem; color:var(--ink-soft);}
+  .callout{
+    background:var(--brick); color:#fff; border-radius:var(--radius); padding:16px 18px;
+    margin-bottom:30px; box-shadow:var(--shadow);
+  }
+  .callout h4{font-family:'Anton',sans-serif; text-transform:uppercase; font-size:1rem; margin-bottom:6px;}
+  .callout p{font-size:0.9rem; opacity:0.95;}
+  .geo-table{width:100%; border-collapse:collapse; font-size:0.85rem; margin-top:6px;}
+  .geo-table td{padding:6px 8px; border-bottom:1px solid var(--line); vertical-align:top;}
+  .geo-table td:first-child{font-weight:700; white-space:nowrap;}
+  .highlight-city{margin-bottom:22px;}
+  .highlight-city h4{
+    font-family:'Anton',sans-serif; color:var(--teal-deep); text-transform:uppercase;
+    font-size:1.05rem; margin-bottom:4px;
+  }
+  .highlight-city .pop{font-family:'IBM Plex Mono',monospace; font-size:0.72rem; color:var(--ink-soft); margin-bottom:10px;}
+  .highlight-list{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  .highlight-list li{background:var(--cream-soft); border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:0.86rem;}
+  .highlight-list a{font-weight:700; text-decoration:none;}
+  .highlight-list a:hover{text-decoration:underline;}
+  .highlight-list .desc{display:block; color:var(--ink-soft); margin-top:2px;}
+
+  /* ---------- MY STATUS ---------- */
+  .status-panel{
+    background:var(--cream-soft); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:22px 22px 26px;
+  }
+  .status-label{font-family:'IBM Plex Mono',monospace; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-soft); margin-right:10px;}
+  .status-select{
+    font-family:'Figtree',sans-serif; font-size:0.95rem; font-weight:600; color:var(--teal-deep);
+    background:var(--cream); border:1.5px solid var(--teal); border-radius:8px; padding:9px 14px;
+    max-width:260px;
+  }
+  .status-body{margin-top:22px; transition:opacity 0.2s;}
+  .status-body.disabled{opacity:0.4; pointer-events:none;}
+  .status-subhead{font-family:'Anton',sans-serif; text-transform:uppercase; color:var(--teal); font-size:1.02rem; margin-top:22px;}
+  .status-hint{font-size:0.82rem; color:var(--ink-soft); margin-top:2px; margin-bottom:10px;}
+
+  .status-availability{display:grid; gap:8px;}
+  .status-day-row{
+    display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    background:rgba(27,69,65,0.05); border-radius:10px; padding:8px 12px;
+  }
+  .status-day-label{font-size:0.85rem; font-weight:600;}
+  .status-day-label .day-type-mini{display:inline; margin-left:6px;}
+  .status-toggle-group{display:flex; gap:4px;}
+  .status-toggle{
+    font-family:'IBM Plex Mono',monospace; font-size:0.7rem; text-transform:uppercase;
+    border:1.5px solid var(--line); background:var(--cream-soft); color:var(--ink-soft);
+    padding:5px 10px; border-radius:14px; cursor:pointer;
+  }
+  .status-toggle.active-in{background:var(--pine); color:#fff; border-color:var(--pine);}
+  .status-toggle.active-out{background:var(--brick); color:#fff; border-color:var(--brick);}
+  .status-toggle.active-tbd{background:var(--amber); color:var(--teal-deep); border-color:var(--amber-deep);}
+
+  .status-activities{display:grid; gap:14px;}
+  .status-city-group h4{font-family:'Anton',sans-serif; font-size:0.92rem; color:var(--teal); text-transform:uppercase; margin-bottom:6px;}
+  .status-check-row{display:flex; align-items:center; gap:9px; padding:4px 0; font-size:0.88rem;}
+  .status-check-row input{width:16px; height:16px; accent-color:var(--pine);}
+
+  .status-plusones{display:flex; flex-wrap:wrap; gap:10px;}
+  .status-plusone-card{
+    background:rgba(178,58,46,0.07); border:1px solid rgba(178,58,46,0.25); border-radius:10px;
+    padding:10px 14px; flex:1 1 200px;
+  }
+  .status-plusone-card .label{font-size:0.85rem; font-weight:700; margin-bottom:6px;}
+  .btn.ghost-amber{background:transparent; color:var(--teal-deep); border:1.5px solid var(--teal);}
+  .btn.ghost-amber:hover{background:var(--teal); color:var(--cream-soft);}
+
+  footer{
+    background:var(--teal-deep); color:var(--cream); text-align:center;
+    padding:30px 20px 36px; margin-top:20px; font-size:0.85rem;
+  }
+  footer .hand{font-size:1.15rem; color:var(--amber); display:block; margin-bottom:6px;}
+  footer .meta{opacity:0.65; font-family:'IBM Plex Mono',monospace; font-size:0.72rem; margin-top:10px;}
+
+  @media (max-width:600px){
+    .hero{padding:48px 16px 36px;}
+    section.block{padding:38px 0 6px;}
+    .countdown-box{min-width:64px; padding:10px 6px 8px;}
+    .countdown-num{font-size:1.4rem;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-eyebrow">ONTARIO, CANADA &middot; AUG 24&ndash;SEP 2, 2026</div>
+  <h1 class="hero-title"><span class="l1">Little Luke's</span><span class="l2">BIG Adventure</span></h1>
+  <p class="hero-sub">10 days. One Englishman. <strong>Trailer &middot; Toronto &middot; Collingwood &middot; Niagara.</strong></p>
+  <p class="hero-blurb">Luke's flying in from England to be shown around Ontario by Tyler, Ryan, and the lads. This page is mission control for the whole trip &mdash; schedule, who's in, what it'll cost, and what still needs doing before he lands.</p>
+
+  <div class="countdown" id="countdown" aria-live="polite">
+    <div class="countdown-box"><div class="countdown-num" id="cd-days">--</div><div class="countdown-label">Days</div></div>
+    <div class="countdown-box"><div class="countdown-num" id="cd-hours">--</div><div class="countdown-label">Hours</div></div>
+    <div class="countdown-box"><div class="countdown-num" id="cd-mins">--</div><div class="countdown-label">Mins</div></div>
+    <div class="countdown-box"><div class="countdown-num" id="cd-secs">--</div><div class="countdown-label">Secs</div></div>
+  </div>
+  <div class="countdown-note" id="countdown-note">until pickup at Pearson</div>
+</header>
+
+<div class="tabs-wrap">
+  <nav class="tabs" id="tabs">
+    <a href="#schedule" class="tab">The Plan</a>
+    <a href="#whosin" class="tab">Who's In</a>
+    <a href="#activities" class="tab">Activity Interest</a>
+    <a href="#mystatus" class="tab">My Status</a>
+    <a href="#costs" class="tab">What It'll Cost</a>
+    <a href="#checklist" class="tab">To-Do List</a>
+    <a href="#info" class="tab">Need to Know</a>
+  </nav>
+</div>
+
+<main class="container">
+
+  <section class="block" id="schedule">
+    <div class="section-head">
+      <div class="section-eyebrow">Day by day</div>
+      <h2 class="section-title">The Plan</h2>
+      <p class="section-desc">Ten days, roughly mapped out. <span class="wag-pin" style="position:static; display:inline-block; transform:none;">+1 OK</span> marks days where girlfriends are welcome to tag along.</p>
+    </div>
+    <div class="day-grid" id="day-grid"></div>
+  </section>
+
+  <section class="block" id="whosin">
+    <div class="section-head">
+      <div class="section-eyebrow">The roster</div>
+      <h2 class="section-title">Who's In</h2>
+      <p class="section-desc">Not everyone can get the time off &mdash; here's who's confirmed for which days. Tyler &amp; Ryan update this from Discord, so ping them if yours needs changing.</p>
+      <div class="progress-row" id="avail-progress"></div>
+    </div>
+    <div class="table-scroll">
+      <table class="roster" id="roster-table"></table>
+      <div class="roster-foot">&#10003; confirmed in &middot; &#10005; can't make it &middot; ? still TBD</div>
+    </div>
+  </section>
+
+  <section class="block" id="activities">
+    <div class="section-head">
+      <div class="section-eyebrow">Pick your poison</div>
+      <h2 class="section-title">Activity Interest</h2>
+      <p class="section-desc">What people are actually keen to do. Tell Tyler or Ryan what to add for you.</p>
+      <div class="progress-row" id="interest-progress"></div>
+    </div>
+    <div id="activity-list"></div>
+  </section>
+
+  <section class="block" id="mystatus">
+    <div class="section-head">
+      <div class="section-eyebrow">Fill yours in</div>
+      <h2 class="section-title">My Status</h2>
+      <p class="section-desc">Pick your name, tick through availability and interest, then download a file and send it to Tyler or Ryan to get added to the live page. Nothing here saves or syncs on its own &mdash; the file is how it gets to them.</p>
+    </div>
+
+    <div class="status-panel">
+      <label class="status-label" for="status-name">I am:</label>
+      <select id="status-name" class="status-select">
+        <option value="">Choose your name&hellip;</option>
+      </select>
+
+      <div id="status-body" class="status-body disabled">
+        <h3 class="status-subhead">Availability</h3>
+        <p class="status-hint">Tap each day to cycle: still deciding &rarr; in &rarr; can't make it.</p>
+        <div id="status-availability" class="status-availability"></div>
+
+        <h3 class="status-subhead">Activity interest</h3>
+        <p class="status-hint">Tick anything you're keen on.</p>
+        <div id="status-activities" class="status-activities"></div>
+
+        <h3 class="status-subhead">Bringing a +1?</h3>
+        <p class="status-hint">Only these segments are open to girlfriends &mdash; trailer days stay guys-only.</p>
+        <div id="status-plusones" class="status-plusones"></div>
+
+        <div class="btn-row" style="margin-top:22px;">
+          <button class="btn" id="status-download-btn">Download My Update</button>
+          <button class="btn ghost-amber" id="status-copy-btn">Copy Instead</button>
+          <button class="btn ghost-amber" id="status-reset-btn">Reset</button>
+        </div>
+        <div class="copy-flash" id="status-flash"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="costs">
+    <div class="section-head">
+      <div class="section-eyebrow">Per person, roughly</div>
+      <h2 class="section-title">What It'll Cost</h2>
+      <p class="section-desc">None of this is mandatory &mdash; just rough estimates. The sooner attendance is confirmed and things get booked, the cheaper it gets.</p>
+    </div>
+    <div class="cost-grid" id="cost-grid"></div>
+
+    <div class="calc-panel">
+      <h3>Estimate My Trip</h3>
+      <p>Tick what applies to you and get a rough personal total. Nothing here is saved &mdash; copy your estimate before you close the tab.</p>
+      <div id="calc-segments"></div>
+      <div class="calc-result">
+        <div class="calc-total-num" id="calc-total">$0&ndash;$0</div>
+        <div class="calc-total-avg" id="calc-avg">average ~$0</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="calc-copy-btn">Copy My Estimate</button>
+      </div>
+      <div class="copy-flash" id="calc-flash"></div>
+    </div>
+  </section>
+
+  <section class="block" id="checklist">
+    <div class="section-head">
+      <div class="section-eyebrow">Before Aug 24</div>
+      <h2 class="section-title">To-Do List</h2>
+      <p class="section-desc">Tick off your own list as you go. This is just for you &mdash; it resets if you reload, so copy your progress if you want a record of it.</p>
+    </div>
+    <div class="checklist-grid" id="checklist-grid"></div>
+  </section>
+
+  <section class="block" id="info">
+    <div class="section-head">
+      <div class="section-eyebrow">The basics</div>
+      <h2 class="section-title">Need to Know</h2>
+    </div>
+    <div id="info-callout"></div>
+    <div class="info-grid" id="info-grid"></div>
+    <div class="section-head" style="margin-top:10px;">
+      <div class="section-eyebrow">Local highlights</div>
+      <h2 class="section-title">Shite To Do</h2>
+      <p class="section-desc">Pulled from Tyler's reconnaissance. Not all of it makes the final schedule, but worth knowing about.</p>
+    </div>
+    <div id="highlights-list"></div>
+  </section>
+
+</main>
+
+<footer>
+  <span class="hand">see you in Ontario, Lukey</span>
+  Built for the crew &middot; updated by Tyler &amp; Ryan from the group chat
+  <div class="meta">Data last reviewed: <span id="last-updated">June 2026</span></div>
+</footer>
+
+<script>
+/* ============================================================
+   DATA — this is the only block you should need to edit.
+   Update availability / interest / checklist here, save, push
+   to GitHub, and the page recalculates everything else itself.
+   Use true / false / null for availability (null = still TBD).
+   ============================================================ */
+const DATA = {
+
+  tripStart: "2026-08-24",
+  tripEnd: "2026-09-02",
+
+  people: [
+    { id:"luke",   name:"Luke",   role:"Guest of honour" },
+    { id:"tyler",  name:"Tyler",  role:"Host" },
+    { id:"ryan",   name:"Ryan",   role:"Host" },
+    { id:"avery",  name:"Avery",  role:"Guest" },
+    { id:"robbie", name:"Robbie", role:"Guest" },
+    { id:"miciah", name:"Miciah", role:"Guest" },
+    { id:"cody",   name:"Cody",   role:"Guest" },
+    { id:"dylan",  name:"Dylan",  role:"Guest" },
+  ],
+
+  days: [
+    { date:"2026-08-24", dayType:"Trailer Day",     wag:false,
+      slots:{ afternoon:"Pick up Luke @ Pearson (YYZ)", evening:"Dinner", night:"Sleepy-eepy" } },
+    { date:"2026-08-25", dayType:"Toronto Day",      wag:true,
+      slots:{ afternoon:"Toronto Day", evening:"Toronto Eve", night:"Blue Gays Weenie Dog Night" } },
+    { date:"2026-08-26", dayType:"Collingwood Day",  wag:true, flexible:true,
+      note:"Open — hanging with friends, no fixed plan (yet)" },
+    { date:"2026-08-27", dayType:"Collingwood Day",  wag:true, flexible:true,
+      note:"Open — hanging with friends, no fixed plan (yet)" },
+    { date:"2026-08-28", dayType:"Collingwood Day",  wag:true,
+      slots:{ night:"Return to Trailer" }, note:"Daytime is open / flexible" },
+    { date:"2026-08-29", dayType:"Niagara Day",      wag:true,
+      slots:{ morning:"Niagara Falls (all day)" } },
+    { date:"2026-08-30", dayType:"Niagara Day",      wag:true,
+      slots:{ morning:"Niagara Falls", evening:"Return to Trailer", night:"Eepy Seepy @ Trailer" } },
+    { date:"2026-08-31", dayType:"Trailer Day",      wag:false, flexible:true,
+      note:"Open trailer time" },
+    { date:"2026-09-01", dayType:"Trailer Day",      wag:false, flexible:true,
+      note:"Open trailer time" },
+    { date:"2026-09-02", dayType:"Farewell Day",     wag:false,
+      slots:{ morning:"Bye bye Lukey — via Toronto Island (YTZ)" } },
+  ],
+
+  // true = in, false = can't make it, null = still TBD
+  availability: {
+    luke:   [true,true,true,true,true,true,true,true,true,true],
+    tyler:  [true,true,true,true,true,true,true,true,true,true],
+    ryan:   [null,null,null,null,null,null,null,null,null,null],
+    avery:  [null,null,null,null,null,null,null,null,null,null],
+    robbie: [null,null,null,null,null,null,null,null,null,null],
+    miciah: [null,null,null,null,null,null,null,null,null,null],
+    cody:   [null,null,null,null,null,null,null,null,null,null],
+    dylan:  [null,null,null,null,null,null,null,null,null,null],
+  },
+
+  activities: [
+    { city:"Toronto",        name:"Blue Jays Game",       interested:["tyler"] },
+    { city:"Toronto",        name:"CN Tower",              interested:["tyler"], optional:true, optionalNote:"only if there's interest — 15% off paired with Jays tickets" },
+    { city:"Toronto",        name:"Toronto Bar Hopping",   interested:["tyler"] },
+    { city:"Toronto",        name:"Hockey Hall of Fame",   interested:["tyler"] },
+    { city:"Toronto",        name:"TFC Game",              interested:["tyler"] },
+    { city:"Niagara Falls",  name:"Clifton Hill",          interested:["tyler"] },
+    { city:"Niagara Falls",  name:"Fallsview Casino",      interested:["tyler"] },
+    { city:"Niagara Falls",  name:"Bird Kingdom",          interested:["tyler"] },
+    { city:"Niagara Falls",  name:"Falls Boat Tour",       interested:["tyler"] },
+    { city:"Niagara Falls",  name:"Wine / Beer Tour",      interested:["tyler"] },
+    { city:"Collingwood",    name:"Blue Mountain",         interested:["tyler"] },
+    { city:"Collingwood",    name:"Ryan Gay Sex",          interested:["ryan"], joke:true },
+    { city:"Fergus / Trailer", name:"Elora Gorge",         interested:["tyler"] },
+    { city:"Fergus / Trailer", name:"Downtown Fergus",     interested:["tyler"] },
+  ],
+
+  costs: {
+    "Toronto Day": {
+      items: [
+        { name:"Bars / Food",     price:"$50–70",  note:"Could do cheaper — lunch at least. Loonie dogs for dinner.", calc:[50,70], baseline:true },
+        { name:"Jays Ticket",     price:"$50–60",  note:"After the 50% discount — cheaper with worse seats.", calc:[50,60], toggle:"jays" },
+        { name:"Jays Food/Drink", price:"$13.50+/beer, $1 hot dogs", note:null },
+        { name:"CN Tower",        price:"$45",      note:"15% off if paired with a Jays ticket.", calc:[45,45], toggle:"cntower", optional:true },
+        { name:"Drive / Park",    price:"$10",      note:"Driving will probably be best.", calc:[10,10], baseline:true },
+      ],
+      total:"$155–$185+ (depending on beers)",
+    },
+    "Niagara Days": {
+      items: [
+        { name:"Lodging",          price:"$70–100", note:"Depends on the hotel — based on 6 people.", calc:[70,100], toggle:"lodging", optional:true },
+        { name:"Food",              price:"$80–150", note:"Lunch + dinner day one, breakfast + lunch day two. Can be cheaper.", calc:[80,150], baseline:true },
+        { name:"Falls Boat Tour",   price:"$47.95",  note:"Might find group rates.", calc:[47.95,47.95], toggle:"boattour" },
+        { name:"Clifton Hill",      price:"$0–50",   note:"Depends what you want to do.", calc:[0,50], toggle:"clifton" },
+        { name:"Fallsview Casino",  price:"However much you're willing to lose, baby 😎", note:"Put it all on red." },
+        { name:"Wine / Beer Tour",  price:"$129+",   note:"Optional — could find a cheaper one.", calc:[129,129], toggle:"winetour", optional:true },
+        { name:"Bird Kingdom",      price:"$15",     note:"Best you'll ever spend.", calc:[15,15], toggle:"birdkingdom" },
+      ],
+      bundleNote:"There's also a bundle option around $250pp that covers a chunk of the above — see Local Highlights.",
+    },
+    "Collingwood Days": {
+      items: [
+        { name:"Food",  price:"$50–100", note:"Can be cheaper.", calc:[50,100], baseline:true },
+        { name:"Beers", price:"$15–50",  note:null, calc:[15,50], baseline:true },
+        { name:"Gay sex with Ryan", price:"Free", note:"Fursuit rentals for an extra fee.", joke:true },
+      ],
+    },
+    "Trailer Days": {
+      items: [
+        { name:"Food",  price:"$20",     note:"Full kitchen — Tyler can cook.", calc:[20,20], baseline:true },
+        { name:"Beers", price:"$15–50",  note:null, calc:[15,50], baseline:true },
+        { name:"Elora Gorge Tubing + Entry", price:"$68.00", note:"Equipment rental + tubing ($55.50) plus conservation area entry ($12.50).", calc:[68,68], toggle:"elora" },
+      ],
+    },
+  },
+
+  checklist: {
+    luke: {
+      title:"Luke",
+      who:"Our guest of honour",
+      items:[
+        "Passport has enough validity left for the trip",
+        "Apply for a Canada eTA (required for UK travellers flying in)",
+        "Book flight into Pearson (YYZ) — confirm arrival time with Tyler",
+        "Book return flight out of Toronto Island / Billy Bishop (YTZ) — different airport than arrival, don't book a Pearson return",
+        "Sort travel insurance",
+        "Sort a SIM / roaming plan (Tyler can set up a travel SIM if needed)",
+        "Sort some CAD cash or confirm card works for tap/contactless",
+        "Pack for warm-to-cool late-August weather — bring a jumper",
+        "Flag any dietary restrictions or allergies before trailer meals",
+        "Mark activity interest on this page once it's up",
+        "Send flight details to Tyler/Ryan once booked",
+      ],
+    },
+    hosts: {
+      title:"Tyler & Ryan",
+      who:"Hosts & coordinators",
+      items:[
+        "Confirm Luke's Pearson (YYZ) pickup time",
+        "Confirm Toronto Island (YTZ) drop-off plan for departure day",
+        "Confirm trailer dates with Highland Pines",
+        "Lock in Jays tickets while the 50% discount window's open",
+        "(Optional) Add CN Tower combo tickets for anyone interested",
+        "Get a WAG headcount for Toronto / Niagara / Collingwood before booking per-person priced things",
+        "(Optional) Book Niagara lodging — once the overnight headcount is known",
+        "Chase the group in Discord for availability + activity interest, keep this page's data updated",
+        "Sort the driving / transport plan between cities",
+        "Book any group rates for Niagara extras (boat tour, wine/beer tour)",
+        "Stock the trailer for Trailer Days",
+        "Set Luke up with a SIM if he needs one",
+        "Re-confirm the full schedule + costs with everyone ~2 weeks out",
+      ],
+    },
+    guests: {
+      title:"Guests",
+      who:"Avery, Robbie, Miciah, Cody, Dylan",
+      items:[
+        "Confirm time off for the days you can make it",
+        "RSVP which segments you're in for (Toronto / Niagara / Collingwood / Trailer)",
+        "Mark your activity interest",
+        "Tell Tyler/Ryan if you're bringing a +1 (Toronto, Niagara or Collingwood only)",
+        "Budget for your share — check the cost estimates",
+        "Sort your own transport to the trailer / meeting point",
+        "Pay any deposits Tyler/Ryan ask for",
+      ],
+    },
+  },
+
+  generalInfo: {
+    geography:[
+      { name:"Trailer Location", notes:"", distance:"1.5hrs from Pearson, 1hr from John C Munro" },
+      { name:"Tyler's City", notes:"Larger steel town", distance:"1hr to trailer, 2hr to Ryan, 1.5hr from Toronto/Niagara" },
+      { name:"Ryan's City", notes:"Quieter cottage town", distance:"1hr to trailer, 2hr to Tyler/Toronto, 2.5hr to Niagara" },
+      { name:"Toronto", notes:"Biggest city in Canada", distance:"1hr from Tyler/Ryan, 1.5–2hr from Niagara" },
+      { name:"Niagara Falls", notes:"One of the 7 wonders of the world — otherwise pretty sketchy.", distance:"" },
+    ],
+    airports:[
+      { name:"Pearson International (YYZ)", notes:"Luke's arrival airport. Equal distance from Tyler and Ryan (a little longer for Ryan)." },
+      { name:"John C. Munro (YHM)", notes:"Closest to Tyler — local reference, not used for this trip's flights." },
+      { name:"Billy Bishop / Toronto Island (YTZ)", notes:"Luke's departure airport — different from where he lands." },
+    ],
+    connectivity:"Rogers / Bell / Telus are the national phone providers. Tyler can set Luke up with a travel SIM if needed.",
+    weather:"Late August weather in the area runs warm to cool — pack a jumper.",
+    aside:"Montreal (Quebec) is also a blast, but it's a 7+ hour drive (and French...) — not part of this trip.",
+  },
+
+  cityHighlights:[
+    { city:"Fergus, ON", population:"23,210", link:"https://elorafergus.ca/", places:[
+      { name:"Trailer", desc:"Tyler's parents' trailer. See link for all park amenities.", link:"https://highlandpines.com/" },
+      { name:"Downtown Fergus", desc:"Cottage town with shops, restaurants and the rest.", link:"https://elorafergus.ca/" },
+      { name:"Elora Gorge", desc:"Popular water destination — rapids and lazy-river floats.", link:"https://www.elorarapids.com/" },
+    ]},
+    { city:"Collingwood, ON \u2014 \u201cCollingboner\u201d", population:"24,811", link:"https://www.collingwood.ca/development-growth-economy/economic-development/visit-collingwood", places:[
+      { name:"Blue Mountain", desc:"One of the most popular ski resorts in Ontario, with some summer activities too.", link:"https://www.bluemountain.ca/" },
+      { name:"Ryan's Gay Sex Hangar", desc:"A place for cars that don't run and lots of men to kiss.", joke:true },
+      { name:"GTA Exotics", desc:"Supercar experiences.", link:"https://gtaexotics.ca/experiences/exotic-car-tours/" },
+      { name:"Art Griffin's Soundchaser Global HQ", desc:"Top-secret recording studio, invite only.", link:"https://artgriffinssoundchaser.bandcamp.com/" },
+    ]},
+    { city:"Hamilton, ON \u2014 \u201cThe Hammer\u201d", population:"569,353", link:"https://tourismhamilton.com/", places:[
+      { name:"Hiking Trails", desc:"Highest waterfall-per-capita of any city in North America.", link:"https://tourismhamilton.com/hamilton-waterfalls-guide/" },
+      { name:"Restaurants / Bars", desc:"Home to the best pizza in Canada. Also the BIG PIZZA.", link:"https://urbanicity.com/hamilton-pizza-spot-maipai-wins-prize-at-national-competition/" },
+      { name:"Hamilton Tiger-Cats", desc:"One of the oldest CFL teams in Canada — games are always a blast.", link:"https://www.ticats.ca/" },
+      { name:"Warplane Heritage Museum", desc:"Large exhibit of well-preserved old aircraft, including an original Lancaster. Free entry.", link:"https://www.warplane.com/" },
+    ]},
+    { city:"Toronto, ON \u2014 \u201cThe Six\u201d", population:"3,271,830", link:"https://www.destinationtoronto.com/", places:[
+      { name:"CN Tower", desc:"Former world's tallest freestanding structure. Restaurant and lookout.", link:"https://www.cntower.ca/" },
+      { name:"Ripley's Aquarium", desc:"One of the largest aquariums in Canada.", link:"https://www.ripleys.com/attractions/ripleys-aquarium-of-canada" },
+      { name:"Toronto Blue Jays", desc:"Canada's only MLB team — 50% discount on tickets going.", link:"https://www.mlb.com/bluejays/" },
+      { name:"Toronto FC", desc:"Soccer, or some shit, who cares.", link:"https://www.torontofc.ca/" },
+      { name:"Hockey Hall of Fame", desc:"Real sport, with interactive exhibits.", link:"https://www.hhof.com/" },
+    ]},
+    { city:"Niagara Falls, ON \u2014 \u201cChinese HQ\u201d", population:"117,931", link:"https://www.niagarafallstourism.com/", places:[
+      { name:"Niagara Falls", desc:"One of the 7 wonders of the world.", link:"https://www.niagarafallstourism.com/" },
+      { name:"Clifton Hill", desc:"Long street of attractions and touristy nonsense. Think Blackpool.", link:"https://www.cliftonhill.com/" },
+      { name:"Fallsview Casino", desc:"One of the larger casinos in Canada. Gamblin' with the seniors.", link:"https://fallsviewcasinoresort.com/" },
+      { name:"Niagara-on-the-Lake", desc:"Wine country — lots of vineyards and breweries.", link:"https://www.niagarafallstourism.com/niagara-region/niagara-on-the-lake/" },
+    ]},
+  ],
+};
+</script>
+<script>
+/* ============================================================
+   RENDER LOGIC — shouldn't need to touch anything below this
+   unless you're changing how the page works, not what it says.
+   ============================================================ */
+
+function parseLocalDate(iso){
+  const [y,m,d] = iso.split("-").map(Number);
+  return new Date(y, m-1, d);
+}
+function fmtDateParts(iso){
+  const dt = parseLocalDate(iso);
+  return {
+    weekday: dt.toLocaleDateString("en-CA",{weekday:"short"}).toUpperCase(),
+    md: dt.toLocaleDateString("en-CA",{month:"short",day:"numeric"}).toUpperCase(),
+  };
+}
+function dayTypeTagClass(t){
+  if(t.includes("Toronto")) return "tag-toronto";
+  if(t.includes("Niagara")) return "tag-niagara";
+  if(t.includes("Collingwood")) return "tag-collingwood";
+  if(t.includes("Trailer")) return "tag-trailer";
+  return "tag-farewell";
+}
+function money(n){
+  return "$" + (Math.round(n*100)/100).toLocaleString("en-CA",{maximumFractionDigits:2,minimumFractionDigits: n%1===0?0:2});
+}
+
+/* ---------- Countdown ---------- */
+function renderCountdown(){
+  const start = parseLocalDate(DATA.tripStart);
+  const end = parseLocalDate(DATA.tripEnd);
+  end.setHours(23,59,59,999);
+  function tick(){
+    const now = new Date();
+    const note = document.getElementById("countdown-note");
+    let diff;
+    if(now < start){
+      diff = start - now;
+      note.textContent = "until pickup at Pearson";
+    } else if(now <= end){
+      diff = 0;
+      note.textContent = "it's happening right now 🎉";
+    } else {
+      diff = 0;
+      note.textContent = "trip's done — hope Luke survived";
+    }
+    const totalSec = Math.max(0, Math.floor(diff/1000));
+    const days = Math.floor(totalSec/86400);
+    const hours = Math.floor((totalSec%86400)/3600);
+    const mins = Math.floor((totalSec%3600)/60);
+    const secs = totalSec%60;
+    document.getElementById("cd-days").textContent = String(days).padStart(2,"0");
+    document.getElementById("cd-hours").textContent = String(hours).padStart(2,"0");
+    document.getElementById("cd-mins").textContent = String(mins).padStart(2,"0");
+    document.getElementById("cd-secs").textContent = String(secs).padStart(2,"0");
+  }
+  tick();
+  setInterval(tick, 1000);
+}
+
+/* ---------- Schedule ---------- */
+function renderSchedule(){
+  const grid = document.getElementById("day-grid");
+  grid.innerHTML = DATA.days.map((day,i)=>{
+    const {weekday, md} = fmtDateParts(day.date);
+    const tagClass = dayTypeTagClass(day.dayType);
+    let body;
+    if(day.flexible){
+      body = `<div class="day-open-note">${day.note}</div>`;
+    } else {
+      const order = ["morning","afternoon","evening","night"];
+      const rows = order.filter(k=>day.slots && day.slots[k]).map(k=>
+        `<div class="day-slot"><span class="slot-label">${k}</span><span>${day.slots[k]}</span></div>`
+      ).join("");
+      const noteRow = day.note ? `<div class="day-open-note">${day.note}</div>` : "";
+      body = rows + noteRow;
+    }
+    return `
+      <div class="day-card ${day.flexible?"flexible":""}">
+        ${day.wag ? `<div class="wag-pin">+1 OK</div>` : ""}
+        <div class="day-stub">
+          <div>
+            <div class="day-weekday">${weekday}</div>
+            <div class="day-date">${md}</div>
+          </div>
+          <div class="dnum">DAY ${i+1}/10</div>
+        </div>
+        <div class="day-body">
+          <span class="day-type-tag ${tagClass}">${day.dayType}</span>
+          <div style="margin-top:10px;">${body}</div>
+        </div>
+      </div>`;
+  }).join("");
+}
+
+/* ---------- Roster / Availability ---------- */
+function renderRoster(){
+  const table = document.getElementById("roster-table");
+  const head = `<tr><th class="name-col">Name</th>` + DATA.days.map(d=>{
+    const {weekday,md} = fmtDateParts(d.date);
+    return `<th>${md}<span class="day-type-mini">${weekday}${d.wag?' <span class="wag-flag">+1 OK</span>':''}</span></th>`;
+  }).join("") + `<th>Confirmed</th></tr>`;
+
+  const rows = DATA.people.map(p=>{
+    const arr = DATA.availability[p.id] || [];
+    const cells = DATA.days.map((d,i)=>{
+      const v = arr[i];
+      const sym = v===true ? '<span class="stat-yes">&#10003;</span>' : v===false ? '<span class="stat-no">&#10005;</span>' : '<span class="stat-unk">?</span>';
+      return `<td>${sym}</td>`;
+    }).join("");
+    const yes = arr.filter(v=>v===true).length;
+    return `<tr><td class="name-col">${p.name}<span class="day-type-mini">${p.role}</span></td>${cells}<td class="mono">${yes}/10</td></tr>`;
+  }).join("");
+
+  table.innerHTML = head + rows;
+
+  const responded = DATA.people.filter(p=> (DATA.availability[p.id]||[]).some(v=>v!==null) ).length;
+  const total = DATA.people.length;
+  document.getElementById("avail-progress").innerHTML = `
+    <span>Availability confirmed: ${responded} of ${total}</span>
+    <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(responded/total*100)}%"></div></div>`;
+}
+
+/* ---------- Activity Interest ---------- */
+function renderActivities(){
+  const cities = [...new Set(DATA.activities.map(a=>a.city))];
+  const peopleById = Object.fromEntries(DATA.people.map(p=>[p.id,p.name]));
+  const container = document.getElementById("activity-list");
+
+  container.innerHTML = cities.map(city=>{
+    const rows = DATA.activities.filter(a=>a.city===city).map(a=>{
+      const chips = (a.interested||[]).map(pid=>
+        `<span class="chip ${a.joke?'joke':''}">${peopleById[pid]||pid}</span>`
+      ).join("");
+      const chipBlock = chips || `<span class="chip-empty">no one yet</span>`;
+      return `
+        <div class="activity-row">
+          <div>
+            <span class="activity-name">${a.name}</span>
+            ${a.optional ? `<div class="activity-optional">${a.optionalNote||"optional — depends on interest"}</div>` : ""}
+          </div>
+          <div class="chip-row">${chipBlock}</div>
+        </div>`;
+    }).join("");
+    return `<div class="activity-city"><h3>${city}</h3>${rows}</div>`;
+  }).join("");
+
+  const respondedSet = new Set();
+  DATA.activities.forEach(a=>(a.interested||[]).forEach(pid=>respondedSet.add(pid)));
+  const total = DATA.people.length;
+  document.getElementById("interest-progress").innerHTML = `
+    <span>Interest submitted: ${respondedSet.size} of ${total}</span>
+    <div class="progress-bar"><div class="progress-fill" style="width:${Math.round(respondedSet.size/total*100)}%"></div></div>`;
+}
+
+/* ---------- Costs ---------- */
+function renderCosts(){
+  const grid = document.getElementById("cost-grid");
+  grid.innerHTML = Object.entries(DATA.costs).map(([dayType,data])=>{
+    const rows = data.items.map(item=>{
+      const optTag = item.optional ? `<span class="cost-optional-tag">optional</span>` : "";
+      return `<tr class="${item.joke?'joke-row':''}">
+        <td>${item.name}${optTag}${item.note?`<span class="cost-note">${item.note}</span>`:""}</td>
+        <td class="price">${item.price}</td>
+      </tr>`;
+    }).join("");
+    const totalRow = data.total ? `<div class="cost-total">Rough total: ${data.total}</div>` : "";
+    const bundle = data.bundleNote ? `<div class="cost-total" style="background:rgba(224,150,46,0.12);">${data.bundleNote}</div>` : "";
+    return `
+      <div class="cost-card">
+        <h3>${dayType}</h3>
+        <table class="cost-table">${rows}</table>
+        ${totalRow}${bundle}
+      </div>`;
+  }).join("");
+}
+
+/* ---------- Personal cost calculator ---------- */
+const calcState = {
+  toronto:false, jays:false, cntower:false,
+  niagara:false, lodging:false, boattour:false, clifton:false, winetour:false, birdkingdom:false,
+  collingwood:false,
+  trailer:false, elora:false,
+};
+
+function calcSegmentTemplate(){
+  return `
+    <div class="calc-segment">
+      <label class="calc-main-toggle"><input type="checkbox" data-seg="toronto"> Toronto Day (Aug 25)</label>
+      <div class="calc-addons disabled" data-addons="toronto">
+        <label><input type="checkbox" data-seg="jays"> Jays Ticket ($50–60)</label>
+        <label><input type="checkbox" data-seg="cntower"> CN Tower ($45)</label>
+      </div>
+    </div>
+    <div class="calc-segment">
+      <label class="calc-main-toggle"><input type="checkbox" data-seg="niagara"> Niagara Days (Aug 29–30)</label>
+      <div class="calc-addons disabled" data-addons="niagara">
+        <label><input type="checkbox" data-seg="lodging"> Lodging ($70–100)</label>
+        <label><input type="checkbox" data-seg="boattour"> Falls Boat Tour ($47.95)</label>
+        <label><input type="checkbox" data-seg="clifton"> Clifton Hill ($0–50)</label>
+        <label><input type="checkbox" data-seg="winetour"> Wine/Beer Tour ($129+)</label>
+        <label><input type="checkbox" data-seg="birdkingdom"> Bird Kingdom ($15)</label>
+      </div>
+    </div>
+    <div class="calc-segment">
+      <label class="calc-main-toggle"><input type="checkbox" data-seg="collingwood"> Collingwood Days (Aug 26–28)</label>
+    </div>
+    <div class="calc-segment">
+      <label class="calc-main-toggle"><input type="checkbox" data-seg="trailer"> Trailer Days (Aug 24, 31–Sep 1)</label>
+      <div class="calc-addons disabled" data-addons="trailer">
+        <label><input type="checkbox" data-seg="elora"> Elora Gorge tubing + entry ($68)</label>
+      </div>
+    </div>`;
+}
+
+function calcRange(){
+  let low=0, high=0;
+  const lines = [];
+  if(calcState.toronto){
+    low+=60; high+=80; lines.push("Toronto Day");
+    if(calcState.jays){ low+=50; high+=60; lines.push("  + Jays Ticket"); }
+    if(calcState.cntower){ low+=45; high+=45; lines.push("  + CN Tower"); }
+  }
+  if(calcState.niagara){
+    low+=80; high+=150; lines.push("Niagara Days");
+    if(calcState.lodging){ low+=70; high+=100; lines.push("  + Lodging"); }
+    if(calcState.boattour){ low+=47.95; high+=47.95; lines.push("  + Falls Boat Tour"); }
+    if(calcState.clifton){ low+=0; high+=50; lines.push("  + Clifton Hill"); }
+    if(calcState.winetour){ low+=129; high+=129; lines.push("  + Wine/Beer Tour"); }
+    if(calcState.birdkingdom){ low+=15; high+=15; lines.push("  + Bird Kingdom"); }
+  }
+  if(calcState.collingwood){
+    low+=65; high+=150; lines.push("Collingwood Days");
+  }
+  if(calcState.trailer){
+    low+=35; high+=70; lines.push("Trailer Days");
+    if(calcState.elora){ low+=68; high+=68; lines.push("  + Elora Gorge"); }
+  }
+  return {low, high, lines};
+}
+
+function renderCalcResult(){
+  const {low,high} = calcRange();
+  document.getElementById("calc-total").textContent = `${money(low)}–${money(high)}`;
+  document.getElementById("calc-avg").textContent = `average ~${money((low+high)/2)}`;
+}
+
+function setupCalculator(){
+  document.getElementById("calc-segments").innerHTML = calcSegmentTemplate();
+  document.querySelectorAll('[data-seg]').forEach(input=>{
+    input.addEventListener("change", e=>{
+      const key = e.target.getAttribute("data-seg");
+      calcState[key] = e.target.checked;
+      const addonBlock = document.querySelector(`[data-addons="${key}"]`);
+      if(addonBlock){
+        addonBlock.classList.toggle("disabled", !e.target.checked);
+        if(!e.target.checked){
+          addonBlock.querySelectorAll("input").forEach(i=>{ i.checked=false; calcState[i.getAttribute("data-seg")]=false; });
+        }
+      }
+      renderCalcResult();
+    });
+  });
+  renderCalcResult();
+
+  document.getElementById("calc-copy-btn").addEventListener("click", ()=>{
+    const {low,high,lines} = calcRange();
+    const text = "My Trip Cost Estimate — Little Luke's BIG Adventure\n" +
+      (lines.length ? lines.map(l=>"- "+l.trim()).join("\n") : "- (nothing selected yet)") +
+      `\nEstimated total: ${money(low)}–${money(high)} (avg ~${money((low+high)/2)})`;
+    copyToClipboard(text, "calc-flash");
+  });
+}
+
+function copyToClipboard(text, flashId){
+  const flash = document.getElementById(flashId);
+  const done = ()=>{ flash.textContent = "Copied — paste it into Discord."; setTimeout(()=>flash.textContent="",2500); };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text,done));
+  } else {
+    fallbackCopy(text, done);
+  }
+}
+function fallbackCopy(text, done){
+  const ta = document.createElement("textarea");
+  ta.value = text; document.body.appendChild(ta); ta.select();
+  try{ document.execCommand("copy"); done(); }catch(e){}
+  document.body.removeChild(ta);
+}
+function flashMsg(id, msg){
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  setTimeout(()=>{ if(el.textContent===msg) el.textContent=""; }, 3000);
+}
+function downloadTextFile(filename, text){
+  const blob = new Blob([text], {type:"text/plain"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+/* ---------- Checklist ---------- */
+function renderChecklist(){
+  const grid = document.getElementById("checklist-grid");
+  grid.innerHTML = Object.entries(DATA.checklist).map(([key,col])=>`
+    <div class="checklist-col" data-col="${key}">
+      <h3>${col.title}</h3>
+      <div class="who">${col.who}</div>
+      <div class="progress-row checklist-progress">
+        <span class="mono" id="prog-${key}">0/${col.items.length}</span>
+        <div class="progress-bar"><div class="progress-fill" id="bar-${key}" style="width:0%"></div></div>
+      </div>
+      ${col.items.map((item,i)=>`
+        <div class="checklist-item" data-row="${key}-${i}">
+          <input type="checkbox" id="${key}-${i}">
+          <label for="${key}-${i}">${item}</label>
+        </div>`).join("")}
+      <div class="btn-row" style="justify-content:flex-start;">
+        <button class="btn" style="margin-top:12px;" data-copy-col="${key}">Copy ${col.title} Checklist</button>
+      </div>
+      <div class="copy-flash" id="flash-${key}"></div>
+    </div>
+  `).join("");
+
+  Object.entries(DATA.checklist).forEach(([key,col])=>{
+    col.items.forEach((item,i)=>{
+      const cb = document.getElementById(`${key}-${i}`);
+      cb.addEventListener("change", ()=>{
+        cb.closest(".checklist-item").classList.toggle("done", cb.checked);
+        updateChecklistProgress(key);
+      });
+    });
+    document.querySelector(`[data-copy-col="${key}"]`).addEventListener("click", ()=>{
+      const lines = col.items.map((item,i)=>{
+        const checked = document.getElementById(`${key}-${i}`).checked;
+        return `[${checked?"x":" "}] ${item}`;
+      });
+      const text = `${col.title}'s Checklist — Little Luke's BIG Adventure\n` + lines.join("\n");
+      copyToClipboard(text, `flash-${key}`);
+    });
+  });
+}
+function updateChecklistProgress(key){
+  const col = DATA.checklist[key];
+  const done = col.items.filter((item,i)=>document.getElementById(`${key}-${i}`).checked).length;
+  document.getElementById(`prog-${key}`).textContent = `${done}/${col.items.length}`;
+  document.getElementById(`bar-${key}`).style.width = `${Math.round(done/col.items.length*100)}%`;
+}
+
+/* ---------- Info ---------- */
+function renderInfo(){
+  document.getElementById("info-callout").innerHTML = `
+    <div class="callout">
+      <h4>Two different airports — don't mix them up</h4>
+      <p>Luke flies <strong>in</strong> to <strong>Pearson (YYZ)</strong> on Aug 24, but flies <strong>home</strong> from <strong>Toronto Island / Billy Bishop (YTZ)</strong> on Sep 2. They're nowhere near each other — book the return leg from the right one.</p>
+    </div>`;
+
+  const gi = DATA.generalInfo;
+  const geoRows = gi.geography.map(g=>`<tr><td>${g.name}</td><td>${g.notes}</td><td class="mono" style="font-size:0.78rem;">${g.distance}</td></tr>`).join("");
+  const airportRows = gi.airports.map(a=>`<li><strong>${a.name}</strong><br>${a.notes}</li>`).join("");
+
+  document.getElementById("info-grid").innerHTML = `
+    <div class="info-card">
+      <h4>Geography &amp; Distances</h4>
+      <table class="geo-table">${geoRows}</table>
+    </div>
+    <div class="info-card">
+      <h4>Airports</h4>
+      <ul style="list-style:none; margin:0; padding:0; display:grid; gap:8px;">${airportRows}</ul>
+    </div>
+    <div class="info-card">
+      <h4>Staying Connected</h4>
+      <p>${gi.connectivity}</p>
+    </div>
+    <div class="info-card">
+      <h4>Weather &amp; Extras</h4>
+      <p>${gi.weather}</p>
+      <p>${gi.aside}</p>
+    </div>`;
+}
+
+/* ---------- Local highlights ---------- */
+function renderHighlights(){
+  const container = document.getElementById("highlights-list");
+  container.innerHTML = DATA.cityHighlights.map(c=>`
+    <div class="highlight-city">
+      <h4>${c.city}</h4>
+      <div class="pop">pop. ${c.population} &middot; <a href="${c.link}" target="_blank" rel="noopener">city info</a></div>
+      <ul class="highlight-list">
+        ${c.places.map(p=>`
+          <li>
+            ${p.link ? `<a href="${p.link}" target="_blank" rel="noopener">${p.name}</a>` : `<strong style="color:var(--brick);">${p.name}</strong>`}
+            <span class="desc">${p.desc}</span>
+          </li>`).join("")}
+      </ul>
+    </div>
+  `).join("");
+}
+
+/* ---------- My Status (personal intake -> exportable file) ---------- */
+const WAG_SEGMENTS = [
+  { key:"Toronto Day",     label:"Toronto Day (Aug 25)" },
+  { key:"Niagara Day",     label:"Niagara Days (Aug 29–30)" },
+  { key:"Collingwood Day", label:"Collingwood Days (Aug 26–28)" },
+];
+const myStatus = {
+  name: null,
+  availability: Array(DATA.days.length).fill(null),
+  interests: new Set(),
+  plusOnes: {},
+};
+
+function resetMyStatusData(){
+  myStatus.availability = Array(DATA.days.length).fill(null);
+  myStatus.interests = new Set();
+  myStatus.plusOnes = {};
+}
+
+function renderStatusAvailability(){
+  const container = document.getElementById("status-availability");
+  container.innerHTML = DATA.days.map((day,i)=>{
+    const {weekday, md} = fmtDateParts(day.date);
+    return `
+      <div class="status-day-row">
+        <span class="status-day-label">${md}<span class="day-type-mini"> ${weekday} &middot; ${day.dayType}</span></span>
+        <div class="status-toggle-group">
+          <button type="button" class="status-toggle active-tbd" data-idx="${i}">TBD</button>
+        </div>
+      </div>`;
+  }).join("");
+
+  container.querySelectorAll(".status-toggle").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const idx = Number(btn.getAttribute("data-idx"));
+      const cur = myStatus.availability[idx];
+      const next = cur===null ? true : (cur===true ? false : null);
+      myStatus.availability[idx] = next;
+      btn.textContent = next===true ? "In" : (next===false ? "Can't" : "TBD");
+      btn.className = "status-toggle " + (next===true ? "active-in" : (next===false ? "active-out" : "active-tbd"));
+    });
+  });
+}
+
+function renderStatusActivities(){
+  const cities = [...new Set(DATA.activities.map(a=>a.city))];
+  const container = document.getElementById("status-activities");
+  container.innerHTML = cities.map(city=>{
+    const rows = DATA.activities.filter(a=>a.city===city).map(a=>`
+      <label class="status-check-row">
+        <input type="checkbox" data-activity="${a.name}">
+        <span>${a.name}</span>
+      </label>`).join("");
+    return `<div class="status-city-group"><h4>${city}</h4>${rows}</div>`;
+  }).join("");
+
+  container.querySelectorAll('input[data-activity]').forEach(cb=>{
+    cb.addEventListener("change", ()=>{
+      const name = cb.getAttribute("data-activity");
+      if(cb.checked) myStatus.interests.add(name); else myStatus.interests.delete(name);
+    });
+  });
+}
+
+function renderStatusPlusOnes(){
+  const container = document.getElementById("status-plusones");
+  container.innerHTML = WAG_SEGMENTS.map(seg=>`
+    <div class="status-plusone-card">
+      <div class="label">${seg.label}</div>
+      <div class="status-toggle-group">
+        <button type="button" class="status-toggle" data-plusone="${seg.key}" data-val="true">Yes</button>
+        <button type="button" class="status-toggle" data-plusone="${seg.key}" data-val="false">No</button>
+      </div>
+    </div>`).join("");
+
+  container.querySelectorAll('[data-plusone]').forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const seg = btn.getAttribute("data-plusone");
+      const val = btn.getAttribute("data-val")==="true";
+      const cur = myStatus.plusOnes[seg];
+      const next = (cur===val) ? null : val;
+      myStatus.plusOnes[seg] = next;
+      const group = btn.closest(".status-toggle-group");
+      group.querySelectorAll(".status-toggle").forEach(b=>{
+        const bv = b.getAttribute("data-val")==="true";
+        b.className = "status-toggle " + (next!==null && bv===next ? "active-in" : "");
+      });
+    });
+  });
+}
+
+function buildStatusExportText(){
+  const person = DATA.people.find(p=>p.id===myStatus.name);
+  if(!person) return null;
+  const lines = [];
+  lines.push("TRIP UPDATE — Little Luke's BIG Adventure");
+  lines.push(`Name: ${person.name}`);
+  lines.push(`Submitted: ${new Date().toLocaleString("en-CA")}`);
+  lines.push("");
+  lines.push("AVAILABILITY");
+  DATA.days.forEach((day,i)=>{
+    const {weekday, md} = fmtDateParts(day.date);
+    const v = myStatus.availability[i];
+    const label = v===true ? "In" : (v===false ? "Can't make it" : "Still deciding");
+    lines.push(`  ${md} (${weekday}, ${day.dayType}): ${label}`);
+  });
+  lines.push("");
+  lines.push("ACTIVITY INTEREST");
+  const cities = [...new Set(DATA.activities.map(a=>a.city))];
+  cities.forEach(city=>{
+    const picked = DATA.activities.filter(a=>a.city===city && myStatus.interests.has(a.name)).map(a=>a.name);
+    lines.push(`  ${city}: ${picked.length ? picked.join(", ") : "(none marked)"}`);
+  });
+  lines.push("");
+  lines.push("BRINGING A +1?");
+  WAG_SEGMENTS.forEach(seg=>{
+    const v = myStatus.plusOnes[seg.key];
+    lines.push(`  ${seg.label}: ${v===true ? "Yes" : (v===false ? "No" : "Not sure yet")}`);
+  });
+  lines.push("");
+  lines.push("———");
+  lines.push("For Tyler/Ryan — ready to paste into the DATA block:");
+  lines.push("");
+  const arrLine = myStatus.availability.map(v=> v===null ? "null" : v).join(",");
+  lines.push(`  ${person.id}: [${arrLine}],`);
+  const interestedNames = DATA.activities.filter(a=>myStatus.interests.has(a.name)).map(a=>a.name);
+  lines.push(interestedNames.length
+    ? `  Add "${person.id}" to activities.interested[] for: ${interestedNames.join(", ")}`
+    : `  No activities marked.`);
+  return lines.join("\n");
+}
+
+function setupMyStatus(){
+  const select = document.getElementById("status-name");
+  select.insertAdjacentHTML("beforeend", DATA.people.map(p=>`<option value="${p.id}">${p.name} (${p.role})</option>`).join(""));
+
+  select.addEventListener("change", e=>{
+    myStatus.name = e.target.value || null;
+    document.getElementById("status-body").classList.toggle("disabled", !myStatus.name);
+  });
+
+  renderStatusAvailability();
+  renderStatusActivities();
+  renderStatusPlusOnes();
+
+  document.getElementById("status-download-btn").addEventListener("click", ()=>{
+    if(!myStatus.name){ flashMsg("status-flash","Pick your name first."); return; }
+    downloadTextFile(`${myStatus.name}-trip-update.txt`, buildStatusExportText());
+    flashMsg("status-flash","Downloaded — send that file to Tyler or Ryan.");
+  });
+  document.getElementById("status-copy-btn").addEventListener("click", ()=>{
+    if(!myStatus.name){ flashMsg("status-flash","Pick your name first."); return; }
+    copyToClipboard(buildStatusExportText(), "status-flash");
+  });
+  document.getElementById("status-reset-btn").addEventListener("click", ()=>{
+    resetMyStatusData();
+    renderStatusAvailability();
+    renderStatusActivities();
+    renderStatusPlusOnes();
+    flashMsg("status-flash","Cleared.");
+  });
+}
+
+/* ---------- Tabs (active state on scroll) ---------- */
+function setupTabs(){
+  const tabs = [...document.querySelectorAll(".tab")];
+  const sections = tabs.map(t=>document.querySelector(t.getAttribute("href")));
+  function onScroll(){
+    let idx = 0;
+    sections.forEach((sec,i)=>{ if(sec.getBoundingClientRect().top - 90 <= 0) idx = i; });
+    tabs.forEach((t,i)=>t.classList.toggle("active", i===idx));
+  }
+  document.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+}
+
+/* ---------- Init ---------- */
+function init(){
+  renderCountdown();
+  renderSchedule();
+  renderRoster();
+  renderActivities();
+  setupMyStatus();
+  renderCosts();
+  setupCalculator();
+  renderChecklist();
+  renderInfo();
+  renderHighlights();
+  setupTabs();
+}
+document.addEventListener("DOMContentLoaded", init);
+</script>
+</body>
+</html>
